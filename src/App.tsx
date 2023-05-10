@@ -1,8 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import { AppContainer } from "./styles";
 
-function App() {
+type AppType = {
+  children?: React.Component;
+};
+
+const App: FC<AppType> = ({ children }) => {
   return <AppContainer>Columns will go here</AppContainer>;
-}
+};
 
 export default App;
