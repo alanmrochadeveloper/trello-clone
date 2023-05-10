@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+type AddItemButtonProps = {
+  dark?: boolean;
+};
+
+export const AddItemButton = styled.button<AddItemButtonProps>`
+  background-color: #ffff3d;
+  border-radius: 3px;
+  border: none;
+  color: ${(props) => (props.dark ? "#000" : "#fff")};
+`;
+
 export const AppContainer = styled.div`
   align-items: flex-start;
   background-color: #3179ba;
