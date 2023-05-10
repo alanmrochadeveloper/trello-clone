@@ -4,6 +4,6 @@ type CardProps = {
   text: string;
 };
 
-export const Cart = ({ text }: CardProps) => {
+export const Card = ({ text }: CardProps) => {
   return <CardContainer>{text}</CardContainer>;
 };
