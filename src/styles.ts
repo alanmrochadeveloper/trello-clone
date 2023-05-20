@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
+interface DragPreviewContainerProps {
+  isHidden?: boolean;
+}
+
 type AddItemButtonProps = {
   dark?: boolean;
 };
+
+export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
+  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+`;
 
 export const NewItemFormContainer = styled.div`
   max-width: 300px;
@@ -57,7 +65,7 @@ export const AppContainer = styled.div`
   width: 100%;
 `;
 
-export const ColumnContainer = styled.div`
+export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
   width: 300px;
   min-height: 40px;
@@ -72,12 +80,22 @@ export const ColumnTitle = styled.div`
   font-weight: bold;
 `;
 
-export const CardContainer = styled.div`
+export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
   max-width: 300px;
   border-radius: 3px;
-  box-shadow: #01e424 0px 1px 0px 0px;
+  box-shadow: #091e42 0px 1px 0px 0px;
+`;
+
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 `;
