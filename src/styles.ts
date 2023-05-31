@@ -1,15 +1,32 @@
 import styled from "styled-components";
 
+type DragPreviewWrapperProps = {
+  position: {
+    x: number;
+    y: number;
+  };
+};
+
 interface DragPreviewContainerProps {
   isHidden?: boolean;
+  isPreview?: boolean;
 }
 
 type AddItemButtonProps = {
   dark?: boolean;
 };
 
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`,
+    },
+  })
+) <DragPreviewWrapperProps>``;
+
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+  transform: ${(props) => (props.isPreview ? "rotate(5deg)" : undefined)};
+  opacity: ${(props) => (props.isHidden ? 0 : 1)};
 `;
 
 export const NewItemFormContainer = styled.div`
@@ -50,6 +67,7 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
   text-align: left;
   transition: background 85ms ease-in;
   width: 100%;
+
   &:hover {
     background-color: #ffff52;
   }
