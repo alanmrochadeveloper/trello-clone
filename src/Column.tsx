@@ -3,7 +3,7 @@ import { AddNewItem } from "./AddNewItem";
 import { useAppState } from "./state/AppStateContext";
 import { ColumnContainer, ColumnTitle } from "./styles";
 import { Card } from "./Card";
-import { addTask, moveList } from "./state/actions";
+import { addTask, moveList, moveTask, setDraggedItem } from "./state/actions";
 import { useItemDrag } from "./utils/useItemDrag";
 import { useDrop } from "react-dnd";
 import { isHidden } from "./utils/isHidden";
@@ -21,7 +21,7 @@ export const Column: FC<ColumnProps> = ({ text, id, isPreview }) => {
 
     const { drag } = useItemDrag({ type: "COLUMN", id, text });
     const [, drop] = useDrop({
-        accept: "COLUMN",
+        accept: ["COLUMN", "CARD"],
         hover() {
             if (!draggedItem) {
                 return;
@@ -31,6 +31,15 @@ export const Column: FC<ColumnProps> = ({ text, id, isPreview }) => {
                     return;
                 }
                 dispatch(moveList(draggedItem.id, id));
+            } else {
+                if (draggedItem.columnId === id) {
+                    return;
+                }
+                if (tasks.length) {
+                    return;
+                }
+                dispatch(moveTask(draggedItem.id, null, draggedItem.columnId, id));
+                dispatch(setDraggedItem({ ...draggedItem, columnId: id }));
             }
         },
     });
